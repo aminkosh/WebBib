@@ -1,0 +1,354 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl" Namespace="Model1.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2005">
+        <EntityContainer Name="Model1TargetContainer" >
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema xmlns="http://schemas.microsoft.com/ado/2009/11/edm" xmlns:cg="http://schemas.microsoft.com/ado/2006/04/codegeneration" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" Namespace="Model1" Alias="Self" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" annotation:UseStrongSpatialTypes="false">
+        <EntityContainer Name="Model1Container" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Users" EntityType="Model1.User" />
+          <EntitySet Name="MasterMediums" EntityType="Model1.MasterMedium" />
+          <EntitySet Name="Mediums" EntityType="Model1.Mediums" />
+          <EntitySet Name="Categories" EntityType="Model1.Category" />
+          <EntitySet Name="Borrows" EntityType="Model1.Borrow" />
+          <AssociationSet Name="MasterBookBooks" Association="Model1.MasterBookBooks">
+            <End Role="MasterBook" EntitySet="MasterMediums" />
+            <End Role="Books" EntitySet="Mediums" />
+          </AssociationSet>
+          <EntitySet Name="ProviderAndMediums" EntityType="Model1.ProviderAndMedium" />
+          <EntitySet Name="Media" EntityType="Model1.Medium" />
+          <EntitySet Name="Copies" EntityType="Model1.Copy" />
+          <EntitySet Name="Reserves" EntityType="Model1.Reserve" />
+          <EntitySet Name="Places" EntityType="Model1.Place" />
+          <EntitySet Name="CategoryAndPlaces" EntityType="Model1.CategoryAndPlace" />
+          <AssociationSet Name="PlaceCategoryAndPlace" Association="Model1.PlaceCategoryAndPlace">
+            <End Role="Place" EntitySet="Places" />
+            <End Role="CategoryAndPlace" EntitySet="CategoryAndPlaces" />
+          </AssociationSet>
+          <AssociationSet Name="CategoryCategoryAndPlace" Association="Model1.CategoryCategoryAndPlace">
+            <End Role="Category" EntitySet="Categories" />
+            <End Role="CategoryAndPlace" EntitySet="CategoryAndPlaces" />
+          </AssociationSet>
+          <AssociationSet Name="CategoryAndPlaceMedium" Association="Model1.CategoryAndPlaceMedium">
+            <End Role="CategoryAndPlace" EntitySet="CategoryAndPlaces" />
+            <End Role="Medium" EntitySet="Copies" />
+          </AssociationSet>
+          <EntitySet Name="Roles" EntityType="Model1.Role" />
+          <AssociationSet Name="RoleUser" Association="Model1.RoleUser">
+            <End Role="Role" EntitySet="Roles" />
+            <End Role="User" EntitySet="Users" />
+          </AssociationSet>
+          <AssociationSet Name="MediumCopy" Association="Model1.MediumCopy">
+            <End Role="Medium" EntitySet="Media" />
+            <End Role="Copy" EntitySet="Copies" />
+          </AssociationSet>
+          <AssociationSet Name="UserBorrow" Association="Model1.UserBorrow">
+            <End Role="User" EntitySet="Users" />
+            <End Role="Borrow" EntitySet="Borrows" />
+          </AssociationSet>
+          <AssociationSet Name="CopyBorrow" Association="Model1.CopyBorrow">
+            <End Role="Copy" EntitySet="Copies" />
+            <End Role="Borrow" EntitySet="Borrows" />
+          </AssociationSet>
+          <AssociationSet Name="UserReserve" Association="Model1.UserReserve">
+            <End Role="User" EntitySet="Users" />
+            <End Role="Reserve" EntitySet="Reserves" />
+          </AssociationSet>
+          <AssociationSet Name="MediumReserve" Association="Model1.MediumReserve">
+            <End Role="Medium" EntitySet="Media" />
+            <End Role="Reserve" EntitySet="Reserves" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="User">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="None" />
+          <Property Name="Name" Type="String" Nullable="false" />
+          <Property Name="FamilyName" Type="String" Nullable="false" />
+          <Property Name="UserName" Type="String" Nullable="false" />
+          <Property Name="Pass" Type="String" Nullable="false" />
+          <Property Name="Email" Type="String" Nullable="false" />
+          <NavigationProperty Name="Role" Relationship="Model1.RoleUser" FromRole="User" ToRole="Role" />
+          <Property Name="RoleId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Borrows" Relationship="Model1.UserBorrow" FromRole="User" ToRole="Borrow" />
+          <NavigationProperty Name="Reserves" Relationship="Model1.UserReserve" FromRole="User" ToRole="Reserve" />
+        </EntityType>
+        <EntityType Name="MasterMedium">
+          <Key>
+            <PropertyRef Name="ISBN" />
+          </Key>
+          <Property Name="ISBN" Type="String" Nullable="false" annotation:StoreGeneratedPattern="None" />
+          <Property Name="Name" Type="String" Nullable="false" />
+          <Property Name="Topic" Type="String" Nullable="false" />
+          <NavigationProperty Name="Books" Relationship="Model1.MasterBookBooks" FromRole="MasterBook" ToRole="Books" />
+          <Property Name="Language" Type="String" Nullable="false" />
+          <Property Name="Type" Type="String" Nullable="false" />
+          <Property Name="Health" Type="String" Nullable="false" />
+          <Property Name="PublishDate" Type="String" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Mediums">
+          <Key>
+            <PropertyRef Name="ISBN" />
+          </Key>
+          <Property Name="ISBN" Type="String" Nullable="false" annotation:StoreGeneratedPattern="None" />
+          <Property Name="Gpalce" Type="String" Nullable="false" />
+          <Property Name="Qty" Type="String" Nullable="false" />
+          <Property Name="CategoryId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="MasterBook" Relationship="Model1.MasterBookBooks" FromRole="Books" ToRole="MasterBook" />
+          <Property Name="MasterBookISBN" Type="String" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Category">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" Nullable="false" />
+          <NavigationProperty Name="CategoryAndPlaces" Relationship="Model1.CategoryCategoryAndPlace" FromRole="Category" ToRole="CategoryAndPlace" />
+        </EntityType>
+        <EntityType Name="Borrow" >
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="String" Nullable="false" Unicode="false" annotation:StoreGeneratedPattern="Identity" xmlns="http://schemas.microsoft.com/ado/2009/11/edm" />
+          <Property Name="BorrowDate" Type="DateTime" Nullable="true" />
+          <Property Name="BorrowExpirDate" Type="DateTime" Nullable="true" />
+          <Property Name="ReturnDate" Type="DateTime" Nullable="true" />
+          <NavigationProperty Name="User" Relationship="Model1.UserBorrow" FromRole="Borrow" ToRole="User" />
+          <Property Name="UserId" Type="Int64" Nullable="false" />
+          <NavigationProperty Name="Copy" Relationship="Model1.CopyBorrow" FromRole="Borrow" ToRole="Copy" />
+          <Property Name="CopyId" Type="String" Nullable="false" />
+        </EntityType>
+        <Association Name="MasterBookBooks">
+          <End Type="Model1.MasterMedium" Role="MasterBook" Multiplicity="1" />
+          <End Type="Model1.Mediums" Role="Books" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="MasterBook">
+              <PropertyRef Name="ISBN" />
+            </Principal>
+            <Dependent Role="Books">
+              <PropertyRef Name="MasterBookISBN" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="ProviderAndMedium">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+        </EntityType>
+        <EntityType Name="Medium">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" Type="Int32" />
+          <Property Name="Type" Type="String" Nullable="true" />
+          <Property Name="Language" Type="String" Nullable="true" />
+          <Property Name="ISBN" Type="String" Nullable="true" />
+          <Property Name="Provider" Type="String" Nullable="true" />
+          <Property Name="Year" Type="DateTime" Nullable="true" />
+          <Property Name="Publisher" Type="String" Nullable="true" />
+          <Property Name="Title" Type="String" Nullable="true" />
+          <NavigationProperty Name="Copies" Relationship="Model1.MediumCopy" FromRole="Medium" ToRole="Copy" />
+          <NavigationProperty Name="Reserves" Relationship="Model1.MediumReserve" FromRole="Medium" ToRole="Reserve" />
+        </EntityType>
+        <EntityType Name="Copy">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="String" Nullable="false" />
+          <Property Name="Gplace" Type="String" Nullable="false" />
+          <NavigationProperty Name="CategoryAndPlace" Relationship="Model1.CategoryAndPlaceMedium" FromRole="Medium" ToRole="CategoryAndPlace" />
+          <Property Name="CategoryAndPlaceId" Type="Int32" Nullable="false" />
+          <Property Name="Description" Type="String" Nullable="true" />
+          <NavigationProperty Name="Medium" Relationship="Model1.MediumCopy" FromRole="Copy" ToRole="Medium" />
+          <Property Name="MediumId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Borrows" Relationship="Model1.CopyBorrow" FromRole="Copy" ToRole="Borrow" />
+        </EntityType>
+        <EntityType Name="Reserve">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ReserveDate" Type="DateTime" Nullable="true" />
+          <Property Name="ReserveDateStart" Type="DateTime" Nullable="true" />
+          <Property Name="ReserveDateExpire" Type="DateTime" Nullable="true" />
+          <NavigationProperty Name="User" Relationship="Model1.UserReserve" FromRole="Reserve" ToRole="User" />
+          <Property Name="UserId" Type="Int64" Nullable="false" />
+          <NavigationProperty Name="Medium" Relationship="Model1.MediumReserve" FromRole="Reserve" ToRole="Medium" />
+          <Property Name="MediumId" Type="Int32" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Place">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Regal" Type="String" Nullable="false" />
+          <Property Name="Row" Type="String" Nullable="false" />
+          <NavigationProperty Name="CategoryAndPlaces" Relationship="Model1.PlaceCategoryAndPlace" FromRole="Place" ToRole="CategoryAndPlace" />
+        </EntityType>
+        <EntityType Name="CategoryAndPlace">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <NavigationProperty Name="Place" Relationship="Model1.PlaceCategoryAndPlace" FromRole="CategoryAndPlace" ToRole="Place" />
+          <Property Name="PlaceId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Category" Relationship="Model1.CategoryCategoryAndPlace" FromRole="CategoryAndPlace" ToRole="Category" />
+          <Property Name="CategoryId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Media" Relationship="Model1.CategoryAndPlaceMedium" FromRole="CategoryAndPlace" ToRole="Medium" />
+        </EntityType>
+        <Association Name="PlaceCategoryAndPlace">
+          <End Type="Model1.Place" Role="Place" Multiplicity="1" />
+          <End Type="Model1.CategoryAndPlace" Role="CategoryAndPlace" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Place">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="CategoryAndPlace">
+              <PropertyRef Name="PlaceId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="CategoryCategoryAndPlace">
+          <End Type="Model1.Category" Role="Category" Multiplicity="1" />
+          <End Type="Model1.CategoryAndPlace" Role="CategoryAndPlace" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Category">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="CategoryAndPlace">
+              <PropertyRef Name="CategoryId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="CategoryAndPlaceMedium">
+          <End Type="Model1.CategoryAndPlace" Role="CategoryAndPlace" Multiplicity="1" />
+          <End Type="Model1.Copy" Role="Medium" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CategoryAndPlace">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Medium">
+              <PropertyRef Name="CategoryAndPlaceId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="Role">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" Nullable="false" />
+          <NavigationProperty Name="Users" Relationship="Model1.RoleUser" FromRole="Role" ToRole="User" />
+        </EntityType>
+        <Association Name="RoleUser">
+          <End Type="Model1.Role" Role="Role" Multiplicity="1" />
+          <End Type="Model1.User" Role="User" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Role">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="User">
+              <PropertyRef Name="RoleId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="MediumCopy">
+          <End Type="Model1.Medium" Role="Medium" Multiplicity="1" />
+          <End Type="Model1.Copy" Role="Copy" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Medium">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Copy">
+              <PropertyRef Name="MediumId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="UserBorrow">
+          <End Type="Model1.User" Role="User" Multiplicity="1" />
+          <End Type="Model1.Borrow" Role="Borrow" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Borrow">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="CopyBorrow">
+          <End Type="Model1.Copy" Role="Copy" Multiplicity="1" />
+          <End Type="Model1.Borrow" Role="Borrow" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Copy">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Borrow">
+              <PropertyRef Name="CopyId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="UserReserve">
+          <End Type="Model1.User" Role="User" Multiplicity="1" />
+          <End Type="Model1.Reserve" Role="Reserve" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Reserve">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="MediumReserve">
+          <End Type="Model1.Medium" Role="Medium" Multiplicity="1" />
+          <End Type="Model1.Reserve" Role="Reserve" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Medium">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Reserve">
+              <PropertyRef Name="MediumId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs" Space="C-S">
+        <Alias Key="Model" Value="Model1" />
+        <Alias Key="Target" Value="Model1.Store" />
+        <EntityContainerMapping CdmEntityContainer="Model1Container" StorageEntityContainer="Model1TargetContainer">
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <edmx:Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </edmx:Connection>
+    <edmx:Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="True" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </edmx:Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

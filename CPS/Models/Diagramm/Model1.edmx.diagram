@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="340020a0e855472a93f9532cfa9d11af" Name="Diagram1" ZoomLevel="100" >
+        <EntityTypeShape EntityType="Model1.User" Width="1.5" PointX="10.625" PointY="7" />
+        <EntityTypeShape EntityType="Model1.MasterBook" Width="1.5" PointX="6.625" PointY="12.375" />
+        <EntityTypeShape EntityType="Model1.Books" Width="1.5" PointX="16.625" PointY="17" />
+        <EntityTypeShape EntityType="Model1.Category" Width="1.5" PointX="6.375" PointY="6.5" />
+        <EntityTypeShape EntityType="Model1.BookBarrow" Width="1.5" PointX="13.75" PointY="17.125" />
+        <AssociationConnector Association="Model1.MasterBookBooks" />
+        <AssociationConnector Association="Model1.CategoryBooks" />
+        <EntityTypeShape EntityType="Model1.ProviderAndBook" Width="1.625" PointX="4.5" PointY="15.125" />
+        <EntityTypeShape EntityType="Model1.BookReserve" Width="1.5" PointX="0.75" PointY="0.75" />
+        <AssociationConnector Association="Model1.UserBookBarrow" />
+        <AssociationConnector Association="Model1.BooksBookBarrow" />
+        <AssociationConnector Association="Model1.UserBookReserve" />
+        <AssociationConnector Association="Model1.BooksBookReserve" />
+        <AssociationConnector Association="Model1.ProviderProviderAndBook" />
+        <AssociationConnector Association="Model1.MasterBookProviderAndBook" />
+        <EntityTypeShape EntityType="Model1.MasterFilm" PointX="3.375" PointY="3.75" Width="1.5" />
+        <EntityTypeShape EntityType="Model1.Film" PointX="3.375" PointY="0.75" Width="1.5" />
+        <EntityTypeShape EntityType="Model1.Medium" Width="1.5" PointX="15.125" PointY="4.75" />
+        <EntityTypeShape EntityType="Model1.Copy" Width="1.5" PointX="8.125" PointY="4.75" />
+        <EntityTypeShape EntityType="Model1.Borrow" Width="1.5" PointX="10.25" PointY="2.625" />
+        <EntityTypeShape EntityType="Model1.Reserve" Width="2" PointX="12.375" PointY="3" />
+        <EntityTypeShape EntityType="Model1.Place" Width="1.5" PointX="4.625" PointY="6" />
+        <EntityTypeShape EntityType="Model1.CategoryAndPlace" Width="1.5" PointX="5.5" PointY="3.125" />
+        <AssociationConnector Association="Model1.PlaceCategoryAndPlace" />
+        <AssociationConnector Association="Model1.CategoryCategoryAndPlace" />
+        <AssociationConnector Association="Model1.CategoryAndPlaceMedium" />
+        <EntityTypeShape EntityType="Model1.Role" Width="1.5" PointX="12.5" PointY="7.5" />
+        <AssociationConnector Association="Model1.RoleUser" />
+        <AssociationConnector Association="Model1.MediumCopy" />
+        <AssociationConnector Association="Model1.UserBorrow" />
+        <AssociationConnector Association="Model1.CopyBorrow" />
+        <AssociationConnector Association="Model1.UserReserve" />
+        <AssociationConnector Association="Model1.MediumReserve" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>
